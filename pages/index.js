@@ -7,7 +7,8 @@ export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
 
   async function onSubmit(e)  {      
-        e.preventDefault()
+    try{
+      e.preventDefault()
         const response = await fetch("/api/generate",{
           method: "post",
           header: {
@@ -17,13 +18,23 @@ export default function Home() {
             animal:animalInput
           }),
           
-        })
+        });
+
+        const data = await response.json();
+        if(response.status !==200){
+          throw data.error || new Error('Request failed with status ${response.status}')
+
+        }
         if(count ==10 ){
           return console.log('you have reached your limit');
         }    
         setCounter(count + 1);
         setAnimalInput("");
         console.log('It is submitted');
+    }catch(e){
+      console.error(e);
+      alert(e.message);
+    }
   }
 
   return (
