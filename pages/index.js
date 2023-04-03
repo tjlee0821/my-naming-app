@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import {useState} from 'react'
+import styles from "./index.module.css"
 
 export default function Home() {
 
   const [count, setCounter] = useState(0);
   const [animalInput, setAnimalInput] = useState("");
+  const [result,setResult] = useState();
 
   async function onSubmit(e)  {      
     try{
@@ -39,16 +41,15 @@ export default function Home() {
 
   return (
     <>
-    <div>
+    <div className={styles.body}>
       <Head>
         <title>This is My App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1>This is My App</h1>
-        <img src="/favicon.ico" />
+      <main className={styles.main}>
+        <img src="/favicon.ico" className={styles.icon}/>
         <h3>Name My Pet</h3>
-        <p>You've used this app {count} times</p>
+        <p>You&apos;ve used this app {count} times</p>
         <form onSubmit={onSubmit}>
           <input 
             type='text'
@@ -65,6 +66,7 @@ export default function Home() {
 
           <input type='submit'/>
         </form>
+        <div className={styles.result}></div>
       </main>
       </div>
     </>
